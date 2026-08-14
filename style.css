@@ -49,3 +49,33 @@ body {
   height: 100%;
   background: transparent !important;
 }
+
+/* Top Left Logo styles */
+.top-left-logo-container {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 100; /* Float above the carousel elements */
+  pointer-events: auto;
+}
+
+.top-left-logo {
+  height: 100px; /* Clean visual branding scale */
+  width: auto;
+  display: block;
+}
+
+/* Top Right Logo styles */
+.top-right-logo-container {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 100; /* Float above the carousel elements */
+  pointer-events: auto;
+}
+
+.top-right-logo {
+  height: 100px; /* Match the size of the left logo */
+  width: auto;
+  display: block;
+}
