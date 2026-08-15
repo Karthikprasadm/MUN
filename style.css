@@ -186,31 +186,13 @@ body {
   justify-content: center;
   height: 36px; /* Explicit height on all items to match perfectly */
   box-sizing: border-box;
-  z-index: 2; /* Sits above the sliding indicator */
-  transition: none; /* Removed transition animations for hover */
+  z-index: 2;
 }
 
 .nav-item.active {
   color: #ffffff;
   background: #000000;
   z-index: 2;
-}
-
-/* Sliding Indicator Black Pill */
-.nav-sliding-indicator {
-  position: absolute;
-  background: #000000;
-  border-radius: 9999px;
-  height: 36px;
-  z-index: 1; /* Layered behind the text layer */
-  transition: left 0.38s cubic-bezier(0.25, 1, 0.5, 1),
-              width 0.38s cubic-bezier(0.25, 1, 0.5, 1);
-  pointer-events: none;
-}
-
-/* Temporary CSS variables during JS slide transitions */
-.nav-item.temp-no-bg {
-  background: transparent !important;
 }
 
 @media (max-width: 768px) {
