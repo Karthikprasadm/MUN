@@ -14,6 +14,57 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <p id="preloader-text">Hello</p>
+    <svg id="preloader-svg">
+      <path id="preloader-path" />
+    </svg>
+  </div>
+
+  <script>
+    (function() {
+      const words = ["Hello", "bonjour", "Ciao", "Olà", "やあ", "Hallå", "Guten tag", "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ"];
+      let index = 0;
+      
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      const initialPath = `M0 0 L${width} 0 L${width} ${height} Q${width/2} ${height + 300} 0 ${height} L0 0`;
+      const targetPath = `M0 0 L${width} 0 L${width} ${height} Q${width/2} ${height} 0 ${height} L0 0`;
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        const pathEl = document.getElementById("preloader-path");
+        const textEl = document.getElementById("preloader-text");
+        const preloaderEl = document.getElementById("preloader");
+        
+        if (pathEl) pathEl.setAttribute("d", initialPath);
+        
+        const cycleWords = () => {
+          if (index < words.length - 1) {
+            const timeout = index === 0 ? 1000 : 150;
+            setTimeout(() => {
+              index++;
+              if (textEl) textEl.textContent = words[index];
+              cycleWords();
+            }, timeout);
+          } else {
+            setTimeout(() => {
+              if (preloaderEl) preloaderEl.classList.add("exit");
+              if (pathEl) pathEl.setAttribute("d", targetPath);
+              
+              setTimeout(() => {
+                if (preloaderEl) preloaderEl.remove();
+              }, 1200);
+            }, 100);
+          }
+        };
+        
+        cycleWords();
+      });
+    })();
+  </script>
+
   <!-- Top Left Logo -->
   <div class="top-left-logo-container">
     <img src="./assets/25_logo.png" alt="25 Logo" class="top-left-logo">

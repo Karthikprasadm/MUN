@@ -1,10 +1,10 @@
 import { createSphereOrbit } from './globe-carousel-3d.js';
 
-// Curated list of 30 verified working red-vibe URLs from the internet
+// Curated list of 30 verified working red-vibe URLs from the internet (which serve as fallbacks)
 const baseRedVibeImages = [
   { src: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80", alt: "Red paint splash" },
-  { src: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80", alt: "Red neon signs" },
-  { src: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80", alt: "Red concert stage" },
+  { src: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=800&q=80", alt: "Red neon signs" },
+  { src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80", alt: "Red concert stage" },
   { src: "https://images.unsplash.com/photo-1520038410233-7141be7e6f97?auto=format&fit=crop&w=800&q=80", alt: "Red street lights" },
   { src: "https://images.unsplash.com/photo-1549213783-8284d0336c4f?auto=format&fit=crop&w=800&q=80", alt: "Red gel studio portrait" },
   { src: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800&q=80", alt: "Gold and red brushstrokes" },
@@ -34,14 +34,27 @@ const baseRedVibeImages = [
   { src: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80", alt: "Tech circuits red highlights" }
 ];
 
-// Duplicate the list to make a total of 60 items
-const galleryData = [
-  ...baseRedVibeImages.map((item, idx) => ({ ...item, alt: `${item.alt} 1` })),
-  ...baseRedVibeImages.map((item, idx) => ({ ...item, alt: `${item.alt} 2` }))
+// Map elements to local paths (./assets/globe/1.jpg to ./assets/globe/30.jpg) with fallback Unsplash URLs
+const galleryData = [];
+for (let i = 0; i < 30; i++) {
+  const localIndex = i + 1;
+  const fallbackItem = baseRedVibeImages[i];
+  galleryData.push({
+    src: `./assets/globe/${localIndex}.jpeg`,
+    fallback: fallbackItem.src,
+    alt: `Globe Image ${localIndex}`
+  });
+}
+
+// Duplicate the list of 30 items to get a pool of 60 items
+const doubleGalleryData = [
+  ...galleryData,
+  ...galleryData
 ];
 
-const images = galleryData.map(item => ({
+const images = doubleGalleryData.map(item => ({
   src: item.src,
+  fallback: item.fallback,
   alt: item.alt
 }));
 

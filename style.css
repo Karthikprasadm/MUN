@@ -79,3 +79,74 @@ body {
   width: auto;
   display: block;
 }
+
+/* Preloader Styles */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent; /* SVG path handles white background fill */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1) 0.2s;
+  pointer-events: none;
+}
+
+#preloader.exit {
+  transform: translateY(-100vh);
+}
+
+#preloader-text {
+  font-family: var(--font-sans);
+  color: #000000;
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  opacity: 0;
+  z-index: 10000;
+  animation: fadeInText 0.8s cubic-bezier(0.76, 0, 0.24, 1) 0.2s forwards;
+}
+
+@media (min-width: 768px) {
+  #preloader-text {
+    font-size: 4.5rem;
+  }
+}
+
+@keyframes fadeInText {
+  from { opacity: 0; }
+  to { opacity: 0.75; }
+}
+
+#preloader-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 300px);
+  pointer-events: none;
+}
+
+#preloader-path {
+  fill: #ffffff;
+  transition: d 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.3s;
+}
+
+/* Responsive adjustments for phones (< 500px) */
+@media (max-width: 500px) {
+  .top-left-logo, .top-right-logo {
+    height: 60px; /* Scale down logos on phones for cleaner branding balance */
+  }
+  .top-left-logo-container {
+    top: 16px;
+    left: 16px;
+  }
+  .top-right-logo-container {
+    top: 16px;
+    right: 16px;
+  }
+}

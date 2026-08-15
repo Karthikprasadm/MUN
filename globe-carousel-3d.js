@@ -125,6 +125,35 @@ function updateSizes(img, cssPx) {
 /** Sets source, srcset and alt at once, touching nothing that hasn't changed. */
 function applyImage(img, source, cssPx) {
   if (cssPx !== undefined) updateSizes(img, cssPx);
+  
+  img.onerror = () => {
+    const currentSrc = img.src || "";
+    if (currentSrc.includes("/assets/globe/")) {
+      const cleanUrl = currentSrc.split(/[?#]/)[0];
+      const match = cleanUrl.match(/\.(jpg|png|webp|jpeg)$/i);
+      if (match) {
+        const ext = match[1].toLowerCase();
+        let nextSrc = "";
+        if (ext === "jpg") {
+          nextSrc = currentSrc.replace(/\.jpg([?#]|$)/i, ".png$1");
+        } else if (ext === "png") {
+          nextSrc = currentSrc.replace(/\.png([?#]|$)/i, ".webp$1");
+        } else if (ext === "webp") {
+          nextSrc = currentSrc.replace(/\.webp([?#]|$)/i, ".jpeg$1");
+        } else if (ext === "jpeg") {
+          if (source.fallback) nextSrc = source.fallback;
+        }
+        if (nextSrc && img.src !== nextSrc) {
+          img.src = nextSrc;
+          return;
+        }
+      }
+    }
+    if (source.fallback && img.src !== source.fallback) {
+      img.src = source.fallback;
+    }
+  };
+
   if (img.getAttribute("src") !== source.src) img.src = source.src;
   const srcSet = source.srcSet || "";
   if (img.getAttribute("srcset") !== srcSet) {
@@ -434,7 +463,7 @@ const sphereDefaults = {
 
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
 const DEG = Math.PI / 180;
-const FIT_REFERENCE = 900;
+const FIT_REFERENCE = 760;
 
 export function createSphereOrbit(root, userOptions = {}) {
   let o = { ...sphereDefaults, ...userOptions };
@@ -531,7 +560,9 @@ export function createSphereOrbit(root, userOptions = {}) {
     const cx = W / 2;
     const cy = H / 2;
     
-    const fit = o.autoFit ? Math.min(W, H) / FIT_REFERENCE : 1;
+    const fit = o.autoFit 
+      ? (Math.min(W, H) < 500 ? Math.min(W, H) / 520 : Math.min(W, H) / FIT_REFERENCE)
+      : 1;
     const radius = o.radius * fit;
     const tileW = o.tileWidth * fit;
     const tileH = o.tileHeight * fit;
