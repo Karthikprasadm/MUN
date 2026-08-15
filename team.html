@@ -34,7 +34,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      height: 140px; /* space to accommodate expanded images */
+      height: 170px; /* space to accommodate expanded images */
       width: max-content;
       max-width: 90%;
       z-index: 20;
@@ -43,12 +43,14 @@
     
     .profile-img-container {
       position: relative;
-      width: 60px;
-      height: 60px;
+      width: var(--profile-w, 95px);
+      height: var(--profile-h, 95px);
       cursor: pointer;
-      transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-                  height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-                  transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      transform: translate3d(var(--profile-tx, 0px), 0, 0);
+      transition: width 0.38s cubic-bezier(0.25, 1, 0.5, 1),
+                  height 0.38s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.38s cubic-bezier(0.25, 1, 0.5, 1),
+                  opacity 0.38s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       z-index: 25;
     }
@@ -71,14 +73,11 @@
     }
     
     .profile-img-container.active {
-      width: 120px;
-      height: 120px;
-      transform: scale(1.05);
+      z-index: 30; /* Pull active profile above side ones */
       box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
     
-    /* Show glow on hover or active with breathing effect */
-    .profile-img-container:hover::before,
+    /* Show glow only on active focused card with breathing effect */
     .profile-img-container.active::before {
       animation: redBreathing 2s ease-in-out infinite alternate;
     }
@@ -188,26 +187,90 @@
     }
 
     @media (max-width: 768px) {
+      .team-viewport {
+        justify-content: center; /* Group elements tightly in the center */
+        padding-top: 0;
+        padding-bottom: 0;
+      }
       .profile-row {
-        gap: 8px;
-        height: 100px;
+        gap: 2.5vw;
+        height: 32vw;
+        max-width: 95%;
+        margin-bottom: 16px; /* Tight vertical gap below profiles */
       }
       .profile-img-container {
-        width: 45px;
-        height: 45px;
+        width: var(--profile-w, 13vw);
+        height: var(--profile-h, 13vw);
+        border-radius: 2.5vw;
       }
-      .profile-img-container.active {
-        width: 80px;
-        height: 80px;
+      .profile-img-container::before {
+        border-radius: 3vw;
+        top: -0.8vw;
+        left: -0.8vw;
+        right: -0.8vw;
+        bottom: -0.8vw;
+        filter: blur(1.5vw);
+      }
+      .profile-img-container img {
+        border-radius: 2.5vw;
       }
       .cursor-bubble {
         display: none; /* Disable follow cursor on small screens */
       }
       .role-display {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
+        margin-top: 0;
+        margin-bottom: 20px; /* Tight vertical gap below role text */
+      }
+      .giant-text-container {
+        margin-top: 0;
+        height: 25vw;
       }
       .giant-name {
-        font-size: 20vw;
+        font-size: 25vw; /* Fills screen width beautifully */
+      }
+    }
+
+    /* Target Phones Only (< 600px) for much larger profile images */
+    @media (max-width: 600px) {
+      .team-viewport {
+        justify-content: center; /* Group elements tightly in the center */
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      .profile-row {
+        gap: 1.5vw; /* Slightly tighter gap to allow larger containers */
+        height: 35vw; /* Taller row for expanded elements */
+        max-width: 98%;
+        margin-bottom: 12px; /* Tight vertical gap below profiles */
+      }
+      .profile-img-container {
+        width: var(--profile-w, 18vw); /* Significantly larger default profile images on mobile phones */
+        height: var(--profile-h, 18vw);
+        border-radius: 3vw;
+      }
+      .profile-img-container::before {
+        border-radius: 3.5vw;
+        top: -1vw;
+        left: -1vw;
+        right: -1vw;
+        bottom: -1vw;
+        filter: blur(1.5vw);
+      }
+      .profile-img-container img {
+        border-radius: 3vw;
+      }
+      .role-display {
+        font-size: 0.8rem;
+        margin-top: 0;
+        margin-bottom: 8px; /* Tight vertical gap below role text */
+      }
+      .giant-text-container {
+        margin-top: 0;
+        height: 28vw;
+      }
+      .giant-name {
+        font-size: 28vw;
       }
     }
   </style>
@@ -223,6 +286,11 @@
   <!-- Top Left Logo -->
   <div class="top-left-logo-container">
     <img src="./assets/Logos/25_logo.png" alt="25 Logo" class="top-left-logo">
+  </div>
+
+  <!-- Top Right Logo -->
+  <div class="top-right-logo-container">
+    <img src="./assets/Logos/MUN_logo.png" alt="MUN Logo" class="top-right-logo">
   </div>
 
   <!-- Main Viewport -->
@@ -256,5 +324,6 @@
   </main>
 
   <script type="module" src="./team.js"></script>
+  <script type="module" src="./nav-sliding.js"></script>
 </body>
 </html>

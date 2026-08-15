@@ -147,7 +147,11 @@ if (canvas) {
     };
 
     const initCrowd = () => {
-      while (availablePeeps.length) {
+      const isMobile = window.innerWidth < 768;
+      // Cap maximum active walking crowd members to 24 on mobile to prevent clutter
+      const maxActive = isMobile ? 24 : allPeeps.length;
+
+      while (crowd.length < maxActive && availablePeeps.length) {
         addPeepToCrowd().walk.progress(Math.random());
       }
     };

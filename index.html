@@ -21,9 +21,24 @@
       <path id="preloader-path" />
     </svg>
   </div>
+  <script>
+    // Synchronously hide the preloader if already visited in this session to prevent visual flashes
+    if (sessionStorage.getItem("hasVisited") === "true") {
+      document.getElementById("preloader").style.display = "none";
+    }
+  </script>
 
   <script>
     (function() {
+      // If already visited, remove the preloader element immediately on load and return
+      if (sessionStorage.getItem("hasVisited") === "true") {
+        document.addEventListener("DOMContentLoaded", () => {
+          const preloaderEl = document.getElementById("preloader");
+          if (preloaderEl) preloaderEl.remove();
+        });
+        return;
+      }
+
       const words = ["Hello", "bonjour", "Ciao", "Olà", "やあ", "Hallå", "Guten tag", "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ"];
       let index = 0;
       
@@ -53,6 +68,9 @@
               if (preloaderEl) preloaderEl.classList.add("exit");
               if (pathEl) pathEl.setAttribute("d", targetPath);
               
+              // Set the session flag when preloader begins exiting
+              sessionStorage.setItem("hasVisited", "true");
+              
               setTimeout(() => {
                 if (preloaderEl) preloaderEl.remove();
               }, 1200);
@@ -77,11 +95,17 @@
     <img src="./assets/Logos/25_logo.png" alt="25 Logo" class="top-left-logo">
   </div>
 
+  <!-- Top Right Logo -->
+  <div class="top-right-logo-container">
+    <img src="./assets/Logos/MUN_logo.png" alt="MUN Logo" class="top-right-logo">
+  </div>
+
   <!-- Main Globe Container -->
   <main class="globe-viewport">
     <div id="carousel-root" class="carousel-container"></div>
   </main>
 
   <script type="module" src="./app.js"></script>
+  <script type="module" src="./nav-sliding.js"></script>
 </body>
 </html>

@@ -29,6 +29,9 @@
     .connected-header {
       position: absolute;
       top: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
       text-align: center;
       z-index: 10;
       pointer-events: none;
@@ -120,6 +123,35 @@
       filter: none; /* Original vector black outline + white fill style */
     }
 
+    /* Mobile Responsive Optimizations (< 768px) */
+    @media (max-width: 768px) {
+      .connected-header {
+        top: 38%; /* Centered vertically in the mobile negative space */
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .connected-title {
+        font-size: 2.2rem; /* Scaled down to prevent text clipping */
+        letter-spacing: -0.02em;
+      }
+      .subscribe-form {
+        width: 290px; /* Compact width fitting mobile margins */
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.96); /* Solid white mask to cover underlying black figures */
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 9999px;
+        padding: 4px 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+      .subscribe-input {
+        font-size: 1.15rem; /* Proportionate input text size */
+        padding: 8px 0;
+      }
+      .subscribe-btn {
+        font-size: 1.4rem; /* Clean scaled arrow symbol */
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -133,6 +165,11 @@
   <!-- Top Left Logo -->
   <div class="top-left-logo-container">
     <img src="./assets/Logos/25_logo.png" alt="25 Logo" class="top-left-logo">
+  </div>
+
+  <!-- Top Right Logo -->
+  <div class="top-right-logo-container">
+    <img src="./assets/Logos/MUN_logo.png" alt="MUN Logo" class="top-right-logo">
   </div>
 
   <!-- Main Viewport -->
@@ -152,5 +189,6 @@
 
   <!-- Crowd Logic Script -->
   <script type="module" src="./stay-connected.js"></script>
+  <script type="module" src="./nav-sliding.js"></script>
 </body>
 </html>

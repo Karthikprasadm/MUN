@@ -139,15 +139,15 @@ body {
 /* Responsive adjustments for phones (< 500px) */
 @media (max-width: 500px) {
   .top-left-logo, .top-right-logo {
-    height: 60px; /* Scale down logos on phones for cleaner branding balance */
+    height: 90px; /* Bolder logo scale on mobile phones */
   }
   .top-left-logo-container {
-    top: 16px;
-    left: 16px;
+    top: 20px;
+    left: 20px;
   }
   .top-right-logo-container {
-    top: 16px;
-    right: 16px;
+    top: 20px;
+    right: 20px;
   }
 }
 
@@ -159,22 +159,20 @@ body {
   transform: translateX(-50%);
   z-index: 1000;
   display: flex;
-  gap: 8px;
-  background: rgba(0, 0, 0, 0.05);
+  align-items: center; /* Align items vertically in the center */
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85); /* Semi-opaque white glassmorphism to mask underlying black figures */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 6px;
+  padding: 5px; /* Clean even gutter */
   border-radius: 9999px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
   transition: border-color 0.3s ease;
 }
 
-.nav-pill:hover {
-  border-color: rgba(239, 68, 68, 0.4); /* subtle red glow on hover */
-}
-
 .nav-item {
+  position: relative; /* Layer relative to the container */
   color: rgba(0, 0, 0, 0.6);
   font-family: var(--font-sans);
   font-size: 0.9rem;
@@ -182,23 +180,49 @@ body {
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 9999px;
-  transition: all 0.3s ease;
-}
-
-.nav-item:hover {
-  color: #000000;
-  background: rgba(0, 0, 0, 0.05);
+  white-space: nowrap; /* Prevent wrapping onto multiple lines */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px; /* Explicit height on all items to match perfectly */
+  box-sizing: border-box;
+  z-index: 2; /* Sits above the sliding indicator */
+  transition: none; /* Removed transition animations for hover */
 }
 
 .nav-item.active {
   color: #ffffff;
   background: #000000;
-  border: 1px solid #000000;
+  z-index: 2;
+}
+
+/* Sliding Indicator Black Pill */
+.nav-sliding-indicator {
+  position: absolute;
+  background: #000000;
+  border-radius: 9999px;
+  height: 36px;
+  z-index: 1; /* Layered behind the text layer */
+  transition: left 0.38s cubic-bezier(0.25, 1, 0.5, 1),
+              width 0.38s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+/* Temporary CSS variables during JS slide transitions */
+.nav-item.temp-no-bg {
+  background: transparent !important;
 }
 
 @media (max-width: 768px) {
   .nav-pill {
     top: auto;
     bottom: 24px; /* Move navigation to bottom on mobile so it doesn't overlap logos */
+    padding: 5px;
+    gap: 5px;
+  }
+  .nav-item {
+    font-size: 0.86rem; /* Comfortable and highly readable mobile font size */
+    padding: 8px 14px;
+    height: 36px; /* Restored standard height for easy tapping */
   }
 }

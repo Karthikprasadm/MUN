@@ -60,18 +60,18 @@ const images = doubleGalleryData.map(item => ({
 
 const carouselRoot = document.getElementById("carousel-root");
 
-// Standard configuration matching the Framer default properties, with count set to 55
+// Standard configuration matching the Framer default properties, with PC parameters for mobile too
 const config = {
   images: images,
   autoRotate: true,
   speed: 14,
   axis: 'y',
   direction: 1,
-  count: 55,
-  radius: 165,
-  distance: 445,
-  tileWidth: 64,
-  tileHeight: 80,
+  count: 55, // Full card count on mobile to form the dense globe
+  radius: 165, // Full PC sphere radius on mobile
+  distance: 445, // Full PC depth perspective on mobile
+  tileWidth: 64, // Full PC card width
+  tileHeight: 80, // Full PC card height
   depthFade: 0.8,
   hideBack: false,
   tilt: 0,
