@@ -16,7 +16,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(process.cwd(), 'index.html'),
-        connected: resolve(process.cwd(), 'stay-connected.html')
+        connected: resolve(process.cwd(), 'stay-connected.html'),
+        team: resolve(process.cwd(), 'team.html')
       }
     }
   }

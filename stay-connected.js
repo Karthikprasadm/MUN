@@ -222,7 +222,7 @@ if (canvas) {
   }
 }
 
-// Handle email form submission with visual green checkmark feedback
+// Handle email form submission with visual checkmark feedback
 const form = document.getElementById("subscribe-form");
 if (form) {
   form.addEventListener("submit", (e) => {
@@ -232,19 +232,20 @@ if (form) {
     const email = input.value;
     if (email) {
       const originalText = btn.textContent;
-      btn.textContent = "Saved ✓";
-      btn.style.backgroundColor = "#22c55e"; // Success green glow
+      btn.textContent = "✓";
+      btn.style.color = "#22c55e"; // Success green text
       btn.disabled = true;
       input.value = "";
       input.disabled = true;
+      input.placeholder = "Thank you for connecting!";
 
-      // Temporary disabled states then return to default
+      // Revert to original states after 2.5s
       setTimeout(() => {
         btn.textContent = originalText;
-        btn.style.backgroundColor = "#000000";
+        btn.style.color = ""; // Revert to black
         btn.disabled = false;
         input.disabled = false;
-        input.placeholder = "your@email.com";
+        input.placeholder = "sup@gmail.com";
       }, 2500);
     }
   });

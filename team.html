@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team | MUNSoc RNSIT</title>
+  <meta name="description" content="Meet the small but mighty team directing MUNSoc RNSIT.">
+  
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800&family=Anton&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    /* Specific styles for the Team page */
+    .team-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    /* Profile row at the top */
+    .profile-row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      height: 140px; /* space to accommodate expanded images */
+      width: max-content;
+      max-width: 90%;
+      z-index: 20;
+      padding: 10px;
+    }
+    
+    .profile-img-container {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                  height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      z-index: 25;
+    }
+    
+    /* Breathing Red Glow Background */
+    .profile-img-container::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 14px;
+      background: #ef4444; /* Exact crimson red matching active names */
+      filter: blur(4px);
+      opacity: 0;
+      z-index: -1;
+      transform: scale(0.98);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    .profile-img-container.active {
+      width: 120px;
+      height: 120px;
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    
+    /* Show glow on hover or active with breathing effect */
+    .profile-img-container:hover::before,
+    .profile-img-container.active::before {
+      animation: redBreathing 2s ease-in-out infinite alternate;
+    }
+    
+    .profile-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px;
+      pointer-events: none;
+    }
+    
+    @keyframes redBreathing {
+      0% {
+        opacity: 0.35;
+        transform: scale(1.005);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 0.65;
+        transform: scale(1.02);
+        filter: blur(6px);
+      }
+    }
+    
+
+    /* Role label below the profiles */
+    .role-display {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 16px;
+      height: 20px; /* visual stability */
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Giant text section */
+    .giant-text-container {
+      position: relative;
+      width: 100vw;
+      height: 22vw;
+      overflow: hidden;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .name-wrapper {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .giant-name {
+      font-family: 'Anton', sans-serif;
+      font-size: 28vw;
+      text-transform: uppercase;
+      line-height: 0.8;
+      margin: 0;
+      padding: 0;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Text reveal states */
+    .giant-name.default {
+      color: #000000;
+    }
+    
+    .giant-name.active-member {
+      color: #ef4444; /* Crimson Red active color */
+    }
+    
+    .letter {
+      display: inline-block;
+      transform: translateY(100%); /* starts hidden below */
+      opacity: 0;
+      /* Default exit transition (when slide-in class is removed or slide-out added - sliding down) */
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.45s ease-in;
+    }
+    
+    /* Slide in state (entering from below with a smooth, modern easeOutExpo) */
+    .slide-in .letter {
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    
+    /* Slide out state (exiting downwards and fading out) */
+    .slide-out .letter {
+      transform: translateY(100%) !important; /* Translate completely outside viewport bounds (downwards) */
+      opacity: 0 !important;
+      transition-duration: 0.55s !important;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    @media (max-width: 768px) {
+      .profile-row {
+        gap: 8px;
+        height: 100px;
+      }
+      .profile-img-container {
+        width: 45px;
+        height: 45px;
+      }
+      .profile-img-container.active {
+        width: 80px;
+        height: 80px;
+      }
+      .cursor-bubble {
+        display: none; /* Disable follow cursor on small screens */
+      }
+      .role-display {
+        font-size: 0.75rem;
+      }
+      .giant-name {
+        font-size: 20vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Pill -->
+  <nav class="nav-pill">
+    <a href="./index.html" class="nav-item" id="nav-gallery">Gallery</a>
+    <a href="./stay-connected.html" class="nav-item" id="nav-connected">Stay Connected</a>
+    <a href="./team.html" class="nav-item active" id="nav-team">Team</a>
+  </nav>
+
+  <!-- Top Left Logo -->
+  <div class="top-left-logo-container">
+    <img src="./assets/Logos/25_logo.png" alt="25 Logo" class="top-left-logo">
+  </div>
+
+  <!-- Main Viewport -->
+  <main class="team-viewport">
+    <!-- Profile Row Container -->
+    <div class="profile-row" id="profile-row">
+      <div class="profile-img-container" data-index="0" data-first-name="NIKHIL" data-full-name="Nikhil Nayak" data-role="Secretary General">
+        <img src="/team/1.jpeg" alt="Nikhil">
+      </div>
+      <div class="profile-img-container" data-index="1" data-first-name="KOUSHIK" data-full-name="V Koushik" data-role="Director General">
+        <img src="/team/2.jpeg" alt="Koushik">
+      </div>
+      <div class="profile-img-container" data-index="2" data-first-name="ADITI" data-full-name="Aditi Maktedar" data-role="Charge d'Affairs">
+        <img src="/team/3.jpeg" alt="Aditi">
+      </div>
+      <div class="profile-img-container" data-index="3" data-first-name="KARTHIK" data-full-name="Karthik Prasad M" data-role="Head of Equity">
+        <img src="/team/4.jpeg" alt="Karthik">
+      </div>
+      <div class="profile-img-container" data-index="4" data-first-name="VAMSHI" data-full-name="Vamshi Ganesh" data-role="Head of Equity">
+        <img src="/team/5.jpeg" alt="Vamshi">
+      </div>
+    </div>
+    
+    <!-- Role display below the profile row -->
+    <div class="role-display" id="role-display">Hover a member to view role</div>
+
+    <!-- Giant text area for name animation -->
+    <div class="giant-text-container" id="giant-text-container">
+      <!-- name-wrapper will be dynamically managed via JS -->
+    </div>
+  </main>
+
+  <script type="module" src="./team.js"></script>
+</body>
+</html>
