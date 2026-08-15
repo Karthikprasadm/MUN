@@ -128,7 +128,7 @@ function applyImage(img, source, cssPx) {
   
   img.onerror = () => {
     const currentSrc = img.src || "";
-    if (currentSrc.includes("/assets/globe/")) {
+    if (currentSrc.includes("/globe/")) {
       const cleanUrl = currentSrc.split(/[?#]/)[0];
       const match = cleanUrl.match(/\.(jpg|png|webp|jpeg)$/i);
       if (match) {
