@@ -52,7 +52,7 @@
       border: 1px solid rgba(0, 0, 0, 0.1);
       padding: 4px;
       border-radius: 9999px;
-      width: 320px;
+      width: 360px; /* Increased to 360px for a more spacious layout */
       max-width: 90%;
       margin: 20px auto 0 auto;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
@@ -67,9 +67,10 @@
 
     .subscribe-input {
       flex: 1;
+      min-width: 0; /* Prevents flex content from overflowing parent width */
       border: none;
       background: transparent;
-      padding: 10px 16px;
+      padding: 8px 12px 8px 16px;
       font-family: 'Outfit', sans-serif;
       font-size: 0.95rem;
       color: #000000;
