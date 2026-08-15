@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
   server: {
@@ -9,6 +10,14 @@ export default defineConfig({
         '**/*.part',
         '**/node_modules/**'
       ]
+    }
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(process.cwd(), 'index.html'),
+        connected: resolve(process.cwd(), 'stay-connected.html')
+      }
     }
   }
 });
