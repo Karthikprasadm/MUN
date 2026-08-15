@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stay Connected | MUNSoc RNSIT</title>
+  <meta name="description" content="A canvas-based interactive simulation of walking crowds to stay connected with MUNSoc RNSIT.">
+  
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    /* Specific styles for the Stay Connected page matching skiper39 exactly */
+    .connected-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff; /* White background */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .connected-header {
+      position: absolute;
+      top: 150px;
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    .connected-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #000000; /* Black text */
+      margin-bottom: 8px;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    
+    /* Pill-shaped Subscription Form */
+    .subscribe-form {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 4px;
+      border-radius: 9999px;
+      width: 320px;
+      max-width: 90%;
+      margin: 20px auto 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+      pointer-events: auto; /* Enable input interactions */
+    }
+
+    .subscribe-form:focus-within {
+      border-color: #000000;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .subscribe-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 10px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      color: #000000;
+      outline: none;
+    }
+
+    .subscribe-input::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    .subscribe-btn {
+      border: none;
+      background: #000000;
+      color: #ffffff;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .subscribe-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.02);
+    }
+
+    .subscribe-btn:active {
+      transform: scale(0.98);
+    }
+    
+    /* Clean canvas walking area at bottom of viewport */
+    #crowd-canvas {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; /* Full screen height to keep peeps at the bottom edge */
+      z-index: 5;
+      pointer-events: none;
+      filter: none; /* Original vector black outline + white fill style */
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navigation Pill -->
+  <nav class="nav-pill">
+    <a href="./index.html" class="nav-item" id="nav-gallery">Gallery</a>
+    <a href="./stay-connected.html" class="nav-item active" id="nav-connected">Stay Connected</a>
+  </nav>
+
+  <!-- Top Left Logo -->
+  <div class="top-left-logo-container">
+    <img src="./assets/Logos/25_logo.png" alt="25 Logo" class="top-left-logo">
+  </div>
+
+  <!-- Main Viewport -->
+  <main class="connected-viewport">
+    <div class="connected-header">
+      <h1 class="connected-title">Stay Connected</h1>
+      
+      <!-- Subscription Form -->
+      <form class="subscribe-form" id="subscribe-form">
+        <input type="email" class="subscribe-input" placeholder="your@email.com" required />
+        <button type="submit" class="subscribe-btn">Submit</button>
+      </form>
+    </div>
+    
+    <canvas id="crowd-canvas"></canvas>
+  </main>
+
+  <!-- Crowd Logic Script -->
+  <script type="module" src="./stay-connected.js"></script>
+</body>
+</html>

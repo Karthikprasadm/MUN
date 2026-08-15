@@ -1,7 +1,7 @@
 /* Design System and Variables */
 :root {
-  --bg-color: #000000;
-  --text-primary: #f5f5f7;
+  --bg-color: #ffffff;
+  --text-primary: #000000;
   --font-sans: 'Outfit', sans-serif;
 }
 
@@ -148,5 +148,57 @@ body {
   .top-right-logo-container {
     top: 16px;
     right: 16px;
+  }
+}
+
+/* Centered Navigation Pill */
+.nav-pill {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  border-radius: 9999px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  transition: border-color 0.3s ease;
+}
+
+.nav-pill:hover {
+  border-color: rgba(239, 68, 68, 0.4); /* subtle red glow on hover */
+}
+
+.nav-item {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #000000;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.nav-item.active {
+  color: #ffffff;
+  background: #000000;
+  border: 1px solid #000000;
+}
+
+@media (max-width: 768px) {
+  .nav-pill {
+    top: auto;
+    bottom: 24px; /* Move navigation to bottom on mobile so it doesn't overlap logos */
   }
 }
