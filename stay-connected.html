@@ -12,13 +12,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="./style.css">
+  <link rel="icon" type="image/png" href="./assets/Logos/MUN_logo.png">
   <style>
     /* Specific styles for the Stay Connected page matching skiper39 exactly */
     .connected-viewport {
       position: relative;
       width: 100vw;
       height: 100vh;
-      background-color: #ffffff; /* White background */
+      background-color: var(--bg-color); /* Inherit soft peach background */
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -41,7 +42,7 @@
     .connected-title {
       font-size: 3rem;
       font-weight: 800;
-      color: #000000; /* Black text */
+      color: var(--text-primary);
       margin-bottom: 8px;
       letter-spacing: -0.03em;
       text-transform: uppercase;
@@ -78,19 +79,19 @@
       font-family: 'Outfit', sans-serif;
       font-size: 1.8rem; /* Large minimalist typography */
       font-weight: 400;
-      color: #000000;
+      color: var(--text-primary);
       outline: none;
       letter-spacing: -0.02em;
     }
 
     .subscribe-input::placeholder {
-      color: rgba(0, 0, 0, 0.2); /* Very subtle light placeholder */
+      color: rgba(0, 0, 0, 0.2); /* Subtle light placeholder */
     }
 
     .subscribe-btn {
       border: none;
       background: transparent;
-      color: #000000;
+      color: var(--text-primary);
       padding: 0;
       font-family: 'Outfit', sans-serif;
       font-size: 2.2rem; /* Large arrow matching input scale */
@@ -157,10 +158,34 @@
 <body>
   <!-- Navigation Pill -->
   <nav class="nav-pill">
-    <a href="./index.html" class="nav-item" id="nav-gallery">Gallery</a>
-    <a href="./stay-connected.html" class="nav-item active" id="nav-connected">Stay Connected</a>
-    <a href="./team.html" class="nav-item" id="nav-team">Team</a>
+    <a href="/" class="nav-item" id="nav-gallery">Gallery</a>
+    <a href="/stay-connected" class="nav-item active" id="nav-connected">Stay Connected</a>
+    <a href="/team" class="nav-item" id="nav-team">Team</a>
   </nav>
+
+  <script>
+    (function() {
+      const nav = document.querySelector('.nav-pill');
+      const items = nav.querySelectorAll('.nav-item');
+      
+      // Prefetch page on hover to ensure instant load
+      items.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          const href = item.getAttribute('href');
+          if (href && href !== window.location.pathname) {
+            const linkId = `prefetch-${href.replace(/\//g, '')}`;
+            if (!document.getElementById(linkId)) {
+              const link = document.createElement('link');
+              link.id = linkId;
+              link.rel = 'prefetch';
+              link.href = href;
+              document.head.appendChild(link);
+            }
+          }
+        });
+      });
+    })();
+  </script>
 
   <!-- Top Left Logo -->
   <div class="top-left-logo-container">

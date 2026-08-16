@@ -35,7 +35,7 @@ function setGiantName(name, isActiveMember) {
     } else {
       setTimeout(() => {
         w.remove();
-      }, 900);
+      }, 600);
     }
   });
 
@@ -67,16 +67,16 @@ function setGiantName(name, isActiveMember) {
     newWrapper.classList.add("slide-in");
   };
 
-  // If there was an existing name transitioning out, delay the entry of the new name
+  // If there was an existing name transitioning out, delay the entry of the new name until it is completely hidden
   if (wrappers.length > 0) {
-    pendingEntryTimeout = setTimeout(createNew, 220); // 220ms delay creates a fast sequential feel
+    pendingEntryTimeout = setTimeout(createNew, 500); // 500ms delay balances snappiness with complete clearance
   } else {
     createNew();
   }
 }
 
 // Initialize default name
-setGiantName("MUNSOC", false);
+setGiantName("RNS'MUN", false);
 
 // Set helper label text dynamically based on viewport size
 if (window.innerWidth < 768) {
@@ -158,7 +158,7 @@ function activateMember(container, index, firstName, fullName, role) {
   setGiantName(firstName, true);
 }
 
-// Function to deactivate and revert to MUNSOC default
+// Function to deactivate and revert to RNS'MUN default
 function deactivateAll() {
   currentActiveIndex = null;
   profileContainers.forEach(c => c.classList.remove("active"));
@@ -167,7 +167,7 @@ function deactivateAll() {
   updateMagneticRipple(null);
 
   roleDisplay.textContent = isTouchOrMobile() ? "Tap a member to view role" : "Hover a member to view role";
-  setGiantName("MUNSOC", false);
+  setGiantName("RNS'MUN", false);
 }
 
 // Attach listeners to profile images

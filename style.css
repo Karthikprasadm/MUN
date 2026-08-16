@@ -1,6 +1,6 @@
 /* Design System and Variables */
 :root {
-  --bg-color: #ffffff;
+  --bg-color: #FFF7EB;
   --text-primary: #000000;
   --font-sans: 'Outfit', sans-serif;
 }
@@ -190,9 +190,13 @@ body {
 }
 
 .nav-item.active {
-  color: #ffffff;
-  background: #000000;
+  color: #000000;
+  font-weight: 600;
   z-index: 2;
+}
+
+.nav-item:hover {
+  color: #000000; /* Darker charcoal black on hover */
 }
 
 @media (max-width: 768px) {
@@ -207,4 +211,21 @@ body {
     padding: 8px 14px;
     height: 36px; /* Restored standard height for easy tapping */
   }
+}
+
+/* Custom Minimal Scrollbar matching warm cream and black aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 9999px;
+  border: 2px solid var(--bg-color);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28);
 }

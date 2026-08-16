@@ -12,13 +12,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800&family=Anton&family=Oswald:wght@700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="./style.css">
+  <link rel="icon" type="image/png" href="./assets/Logos/MUN_logo.png">
   <style>
     /* Specific styles for the Team page */
     .team-viewport {
       position: relative;
       width: 100vw;
       height: 100vh;
-      background-color: #ffffff;
+      background-color: var(--bg-color);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -158,31 +159,26 @@
     }
     
     .giant-name.active-member {
-      color: #ef4444; /* Crimson Red active color */
+      color: #6C0D2C; /* Deep Wine Red active reveal accent */
     }
     
     .letter {
       display: inline-block;
-      transform: translateY(100%); /* starts hidden below */
-      opacity: 0;
+      transform: translateY(150%); /* Translate even deeper to guarantee giant letter tops are 100% hidden */
       /* Default exit transition (when slide-in class is removed or slide-out added - sliding down) */
-      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.45s ease-in;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
     /* Slide in state (entering from below with a smooth, modern easeOutExpo) */
     .slide-in .letter {
       transform: translateY(0);
-      opacity: 1;
-      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
-    /* Slide out state (exiting downwards and fading out) */
+    /* Slide out state (exiting downwards) */
     .slide-out .letter {
-      transform: translateY(100%) !important; /* Translate completely outside viewport bounds (downwards) */
-      opacity: 0 !important;
-      transition-duration: 0.55s !important;
+      transform: translateY(150%) !important; /* Translate completely below container bounds */
+      transition-duration: 0.28s !important;
       transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
 
@@ -278,10 +274,34 @@
 <body>
   <!-- Navigation Pill -->
   <nav class="nav-pill">
-    <a href="./index.html" class="nav-item" id="nav-gallery">Gallery</a>
-    <a href="./stay-connected.html" class="nav-item" id="nav-connected">Stay Connected</a>
-    <a href="./team.html" class="nav-item active" id="nav-team">Team</a>
+    <a href="/" class="nav-item" id="nav-gallery">Gallery</a>
+    <a href="/stay-connected" class="nav-item" id="nav-connected">Stay Connected</a>
+    <a href="/team" class="nav-item active" id="nav-team">Team</a>
   </nav>
+
+  <script>
+    (function() {
+      const nav = document.querySelector('.nav-pill');
+      const items = nav.querySelectorAll('.nav-item');
+      
+      // Prefetch page on hover to ensure instant load
+      items.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          const href = item.getAttribute('href');
+          if (href && href !== window.location.pathname) {
+            const linkId = `prefetch-${href.replace(/\//g, '')}`;
+            if (!document.getElementById(linkId)) {
+              const link = document.createElement('link');
+              link.id = linkId;
+              link.rel = 'prefetch';
+              link.href = href;
+              document.head.appendChild(link);
+            }
+          }
+        });
+      });
+    })();
+  </script>
 
   <!-- Top Left Logo -->
   <div class="top-left-logo-container">

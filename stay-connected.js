@@ -21,7 +21,10 @@ if (canvas) {
     // TWEEN FACTORIES
     const resetPeep = ({ stage, peep }) => {
       const direction = Math.random() > 0.5 ? 1 : -1;
-      const offsetY = 100 - 250 * gsap.parseEase("power2.in")(Math.random());
+      const isMobile = window.innerWidth < 768;
+      const offsetRange = isMobile ? 80 : 250;
+      const maxOffset = isMobile ? 30 : 100;
+      const offsetY = maxOffset - offsetRange * gsap.parseEase("power2.in")(Math.random());
       const startY = stage.height - peep.height + offsetY;
       let startX;
       let endX;
@@ -84,8 +87,15 @@ if (canvas) {
       const peep = {
         image,
         rect: rect,
-        width: rect[2],
-        height: rect[3],
+        get scaleFactor() {
+          return window.innerWidth < 768 ? 0.65 : 1.0;
+        },
+        get width() {
+          return rect[2] * this.scaleFactor;
+        },
+        get height() {
+          return rect[3] * this.scaleFactor;
+        },
         x: 0,
         y: 0,
         anchorY: 0,
