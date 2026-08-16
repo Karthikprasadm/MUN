@@ -6,6 +6,19 @@
   <title>Our Team | MUNSoc RNSIT</title>
   <meta name="description" content="Meet the small but mighty team directing MUNSoc RNSIT.">
   
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mun-rnsit.vercel.app/team">
+  <meta property="og:title" content="Our Team | MUNSoc RNSIT">
+  <meta property="og:description" content="Meet the small but mighty team directing MUNSoc RNSIT.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://mun-rnsit.vercel.app/team">
+  <meta property="twitter:title" content="Our Team | MUNSoc RNSIT">
+  <meta property="twitter:description" content="Meet the small but mighty team directing MUNSoc RNSIT.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +26,9 @@
   
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/png" href="./assets/Logos/MUN_logo.png">
+  <link rel="apple-touch-icon" href="/assets/Logos/MUN_logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6C0D2C">
   <style>
     /* Specific styles for the Team page */
     .team-viewport {
@@ -65,7 +81,7 @@
       right: -3px;
       bottom: -3px;
       border-radius: 14px;
-      background: #ef4444; /* Exact crimson red matching active names */
+      background: #6C0D2C; /* Deep Wine Red matching active name accents */
       filter: blur(4px);
       opacity: 0;
       z-index: -1;
@@ -272,9 +288,18 @@
   </style>
 </head>
 <body>
+  <!-- Landscape Orientation Warning Overlay -->
+  <div class="orientation-warning">
+    <div class="warning-content">
+      <div class="phone-icon">📱</div>
+      <h2>Please Rotate Your Device</h2>
+      <p>This experience is optimized for portrait mode.</p>
+    </div>
+  </div>
+
   <!-- Navigation Pill -->
   <nav class="nav-pill">
-    <a href="/" class="nav-item" id="nav-gallery">Gallery</a>
+    <a href="/" class="nav-item" id="nav-gallery">Home</a>
     <a href="/stay-connected" class="nav-item" id="nav-connected">Stay Connected</a>
     <a href="/team" class="nav-item active" id="nav-team">Team</a>
   </nav>
@@ -344,5 +369,6 @@
   </main>
 
   <script type="module" src="./team.js"></script>
+  <script src="/register-sw.js"></script>
 </body>
 </html>

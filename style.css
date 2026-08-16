@@ -11,6 +11,17 @@
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent; /* Remove blue highlight flash on tap */
+}
+
+a, img, .profile-img-container {
+  -webkit-touch-callout: none; /* Disable native iOS popup menu on long press */
+  -webkit-user-select: none;   /* Disable selection highlights */
+  user-select: none;
+}
+
+html, body {
+  overscroll-behavior: none; /* Prevent elastic bounce scroll on mobile viewports */
 }
 
 body {
@@ -189,19 +200,23 @@ body {
 }
 
 .nav-item.active {
-  color: #000000;
+  color: #6C0D2C;
   font-weight: 600;
   z-index: 2;
 }
 
 .nav-item:hover {
-  color: #000000; /* Darker charcoal black on hover */
+  color: #000000; /* Darker charcoal black on hover for inactive tabs */
+}
+
+.nav-item.active:hover {
+  color: #6C0D2C; /* Keep active wine red on hover */
 }
 
 @media (max-width: 768px) {
   .nav-pill {
     top: auto;
-    bottom: 24px; /* Move navigation to bottom on mobile so it doesn't overlap logos */
+    bottom: calc(24px + env(safe-area-inset-bottom)); /* Adjust bottom safe margin to prevent home indicator overlap */
     padding: 5px;
     gap: 5px;
   }
@@ -227,4 +242,74 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.28);
+}
+
+/* Landscape Orientation Warning Overlay */
+.orientation-warning {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #FFF7EB; /* Warm cream background */
+  z-index: 99999; /* Sits on top of all layers */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.warning-content {
+  max-width: 320px;
+  font-family: 'Outfit', sans-serif;
+  color: #000000;
+}
+
+.phone-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  animation: rotatePhone 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+.warning-content h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #6C0D2C; /* Branded Wine Red */
+  letter-spacing: -0.02em;
+}
+
+.warning-content p {
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1.5;
+}
+
+@keyframes rotatePhone {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-90deg);
+  }
+}
+
+/* Activate warning on small heights (landscape phones) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .orientation-warning {
+    display: flex;
+  }
+}
+
+/* Tactile Touch Feedback (Active Tap Scaling) */
+.nav-item:active,
+.action-button:active,
+.sound-toggle-btn:active,
+#sound-btn:active,
+.subscribe-btn:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.08s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }

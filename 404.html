@@ -4,8 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 | MUNSoc RNSIT</title>
-  <meta name="description" content="Page not found - MUNSoc RNSIT.">
+  <meta name="description" content="Adjourned in error. The session you are looking for does not exist.">
   
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mun-rnsit.vercel.app/404">
+  <meta property="og:title" content="404 | MUNSoc RNSIT">
+  <meta property="og:description" content="Adjourned in error. The session you are looking for does not exist.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://mun-rnsit.vercel.app/404">
+  <meta property="twitter:title" content="404 | MUNSoc RNSIT">
+  <meta property="twitter:description" content="Adjourned in error. The session you are looking for does not exist.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +26,9 @@
   
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/png" href="./assets/Logos/MUN_logo.png">
+  <link rel="apple-touch-icon" href="/assets/Logos/MUN_logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6C0D2C">
   <style>
     .error-viewport {
       width: 100vw;
@@ -194,6 +210,15 @@
   </style>
 </head>
 <body>
+  <!-- Landscape Orientation Warning Overlay -->
+  <div class="orientation-warning">
+    <div class="warning-content">
+      <div class="phone-icon">📱</div>
+      <h2>Please Rotate Your Device</h2>
+      <p>This experience is optimized for portrait mode.</p>
+    </div>
+  </div>
+
   <!-- Fullscreen Background Video -->
   <div class="video-bg-container">
     <video autoplay loop muted playsinline class="bg-video" id="rick-video">
@@ -278,5 +303,6 @@
       }
     });
   </script>
+  <script src="/register-sw.js"></script>
 </body>
 </html>

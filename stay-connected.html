@@ -4,8 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stay Connected | MUNSoc RNSIT</title>
-  <meta name="description" content="A canvas-based interactive simulation of walking crowds to stay connected with MUNSoc RNSIT.">
+  <meta name="description" content="Get in touch with MUNSoc RNSIT. Connect with our delegation and stay updated with assemblies.">
   
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mun-rnsit.vercel.app/stay-connected">
+  <meta property="og:title" content="Stay Connected | MUNSoc RNSIT">
+  <meta property="og:description" content="Get in touch with MUNSoc RNSIT. Connect with our delegation and stay updated with assemblies.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://mun-rnsit.vercel.app/stay-connected">
+  <meta property="twitter:title" content="Stay Connected | MUNSoc RNSIT">
+  <meta property="twitter:description" content="Get in touch with MUNSoc RNSIT. Connect with our delegation and stay updated with assemblies.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +26,9 @@
   
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/png" href="./assets/Logos/MUN_logo.png">
+  <link rel="apple-touch-icon" href="/assets/Logos/MUN_logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6C0D2C">
   <style>
     /* Specific styles for the Stay Connected page matching skiper39 exactly */
     .connected-viewport {
@@ -124,6 +140,32 @@
       filter: none; /* Original vector black outline + white fill style */
     }
 
+    .subscribe-form.has-error {
+      border-color: #6C0D2C !important; /* Deep wine red border matching active names theme */
+    }
+
+    .error-msg-container {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #6C0D2C; /* Deep Wine Red color */
+      margin-top: 10px;
+      height: 20px; /* Layout stability */
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.3s cubic-bezier(0.25, 1, 0.3, 1),
+                  transform 0.3s cubic-bezier(0.25, 1, 0.3, 1);
+      pointer-events: none;
+      text-align: center;
+      width: 100%;
+      letter-spacing: -0.01em;
+    }
+
+    .error-msg-container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Mobile Responsive Optimizations (< 768px) */
     @media (max-width: 768px) {
       .connected-header {
@@ -156,9 +198,18 @@
   </style>
 </head>
 <body>
+  <!-- Landscape Orientation Warning Overlay -->
+  <div class="orientation-warning">
+    <div class="warning-content">
+      <div class="phone-icon">📱</div>
+      <h2>Please Rotate Your Device</h2>
+      <p>This experience is optimized for portrait mode.</p>
+    </div>
+  </div>
+
   <!-- Navigation Pill -->
   <nav class="nav-pill">
-    <a href="/" class="nav-item" id="nav-gallery">Gallery</a>
+    <a href="/" class="nav-item" id="nav-gallery">Home</a>
     <a href="/stay-connected" class="nav-item active" id="nav-connected">Stay Connected</a>
     <a href="/team" class="nav-item" id="nav-team">Team</a>
   </nav>
@@ -203,10 +254,11 @@
       <h1 class="connected-title">Stay Connected</h1>
       
       <!-- Subscription Form -->
-      <form class="subscribe-form" id="subscribe-form">
+      <form class="subscribe-form" id="subscribe-form" novalidate>
         <input type="email" class="subscribe-input" placeholder="sup@gmail.com" required />
         <button type="submit" class="subscribe-btn">→</button>
       </form>
+      <div class="error-msg-container" id="error-msg">Please enter a valid email address.</div>
     </div>
     
     <canvas id="crowd-canvas"></canvas>
@@ -214,5 +266,6 @@
 
   <!-- Crowd Logic Script -->
   <script type="module" src="./stay-connected.js"></script>
+  <script src="/register-sw.js"></script>
 </body>
 </html>

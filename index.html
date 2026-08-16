@@ -3,9 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUNSoc RNSIT</title>
+  <title>MUNSoc RNSIT | Home</title>
   <meta name="description" content="An interactive, premium 3D Globe Carousel featuring custom rotation and high-resolution art visuals.">
   
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mun-rnsit.vercel.app/">
+  <meta property="og:title" content="MUNSoc RNSIT | Home">
+  <meta property="og:description" content="An interactive, premium 3D Globe Carousel featuring custom rotation and high-resolution art visuals.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://mun-rnsit.vercel.app/">
+  <meta property="twitter:title" content="MUNSoc RNSIT | Home">
+  <meta property="twitter:description" content="An interactive, premium 3D Globe Carousel featuring custom rotation and high-resolution art visuals.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/Karthikprasadm/MUN/main/assets/Logos/MUN_logo.png">
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +26,9 @@
   
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/png" href="./assets/Logos/MUN_logo.png">
+  <link rel="apple-touch-icon" href="/assets/Logos/MUN_logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6C0D2C">
   
   <!-- Preload Critical Assets for Instant Rendering -->
   <link rel="preload" as="image" href="./assets/Logos/25_logo.png">
@@ -49,6 +65,15 @@
   <link rel="preload" as="image" href="./globe/30.jpeg">
 </head>
 <body>
+  <!-- Landscape Orientation Warning Overlay -->
+  <div class="orientation-warning">
+    <div class="warning-content">
+      <div class="phone-icon">📱</div>
+      <h2>Please Rotate Your Device</h2>
+      <p>This experience is optimized for portrait mode.</p>
+    </div>
+  </div>
+
   <!-- Preloader Screen -->
   <div id="preloader">
     <p id="preloader-text">Hello</p>
@@ -119,7 +144,7 @@
 
   <!-- Navigation Pill -->
   <nav class="nav-pill">
-    <a href="/" class="nav-item active" id="nav-gallery">Gallery</a>
+    <a href="/" class="nav-item active" id="nav-gallery">Home</a>
     <a href="/stay-connected" class="nav-item" id="nav-connected">Stay Connected</a>
     <a href="/team" class="nav-item" id="nav-team">Team</a>
   </nav>
@@ -164,5 +189,6 @@
   </main>
 
   <script type="module" src="./app.js"></script>
+  <script src="/register-sw.js"></script>
 </body>
 </html>
