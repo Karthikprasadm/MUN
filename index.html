@@ -13,6 +13,40 @@
   
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/png" href="./assets/Logos/MUN_logo.png">
+  
+  <!-- Preload Critical Assets for Instant Rendering -->
+  <link rel="preload" as="image" href="./assets/Logos/25_logo.png">
+  <link rel="preload" as="image" href="./assets/Logos/MUN_logo.png">
+  <link rel="preload" as="image" href="./globe/1.jpeg">
+  <link rel="preload" as="image" href="./globe/2.jpeg">
+  <link rel="preload" as="image" href="./globe/3.jpeg">
+  <link rel="preload" as="image" href="./globe/4.jpeg">
+  <link rel="preload" as="image" href="./globe/5.jpeg">
+  <link rel="preload" as="image" href="./globe/6.jpeg">
+  <link rel="preload" as="image" href="./globe/7.jpeg">
+  <link rel="preload" as="image" href="./globe/8.jpeg">
+  <link rel="preload" as="image" href="./globe/9.jpeg">
+  <link rel="preload" as="image" href="./globe/10.jpeg">
+  <link rel="preload" as="image" href="./globe/11.jpeg">
+  <link rel="preload" as="image" href="./globe/12.jpeg">
+  <link rel="preload" as="image" href="./globe/13.jpeg">
+  <link rel="preload" as="image" href="./globe/14.jpeg">
+  <link rel="preload" as="image" href="./globe/15.jpeg">
+  <link rel="preload" as="image" href="./globe/16.jpeg">
+  <link rel="preload" as="image" href="./globe/17.jpeg">
+  <link rel="preload" as="image" href="./globe/18.jpeg">
+  <link rel="preload" as="image" href="./globe/19.jpeg">
+  <link rel="preload" as="image" href="./globe/20.jpeg">
+  <link rel="preload" as="image" href="./globe/21.jpeg">
+  <link rel="preload" as="image" href="./globe/22.jpeg">
+  <link rel="preload" as="image" href="./globe/23.jpeg">
+  <link rel="preload" as="image" href="./globe/24.jpeg">
+  <link rel="preload" as="image" href="./globe/25.jpeg">
+  <link rel="preload" as="image" href="./globe/26.jpeg">
+  <link rel="preload" as="image" href="./globe/27.jpeg">
+  <link rel="preload" as="image" href="./globe/28.jpeg">
+  <link rel="preload" as="image" href="./globe/29.jpeg">
+  <link rel="preload" as="image" href="./globe/30.jpeg">
 </head>
 <body>
   <!-- Preloader Screen -->
@@ -67,14 +101,13 @@
           } else {
             setTimeout(() => {
               if (preloaderEl) preloaderEl.classList.add("exit");
-              if (pathEl) pathEl.setAttribute("d", targetPath);
               
               // Set the session flag when preloader begins exiting
               sessionStorage.setItem("hasVisited", "true");
               
               setTimeout(() => {
                 if (preloaderEl) preloaderEl.remove();
-              }, 1200);
+              }, 850); // Matches the 0.8s CSS fade transition
             }, 100);
           }
         };

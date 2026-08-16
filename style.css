@@ -87,17 +87,21 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: transparent; /* SVG path handles white background fill */
+  background-color: var(--bg-color); /* Solid warm cream background fill */
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1) 0.2s;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.25, 1, 0.3, 1);
   pointer-events: none;
 }
 
 #preloader.exit {
-  transform: translateY(-100vh);
+  opacity: 0;
+  transform: translateY(-80px); /* Elegant fade-up slide distance */
 }
 
 #preloader-text {
@@ -123,16 +127,11 @@ body {
 }
 
 #preloader-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100% + 300px);
-  pointer-events: none;
+  display: none; /* Deactivate SVG curve masking entirely for flat reveal */
 }
 
 #preloader-path {
-  fill: var(--bg-color); /* Matches the main warm cream background color */
+  fill: var(--bg-color);
   transition: d 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.3s;
 }
 
