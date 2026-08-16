@@ -132,7 +132,7 @@ body {
 }
 
 #preloader-path {
-  fill: #ffffff;
+  fill: var(--bg-color); /* Matches the main warm cream background color */
   transition: d 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.3s;
 }
 
