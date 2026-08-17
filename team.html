@@ -60,66 +60,38 @@
     
     .profile-img-container {
       position: relative;
-      width: var(--profile-w, 95px);
-      height: var(--profile-h, 95px);
+      width: 95px; /* Fixed width to prevent reflows */
+      height: 95px; /* Fixed height to prevent reflows */
       cursor: pointer;
-      transform: translate3d(var(--profile-tx, 0px), 0, 0);
-      transition: width 0.38s cubic-bezier(0.25, 1, 0.5, 1),
-                  height 0.38s cubic-bezier(0.25, 1, 0.5, 1),
-                  transform 0.38s cubic-bezier(0.25, 1, 0.5, 1),
-                  opacity 0.38s ease;
+      transform: translate3d(var(--profile-tx, 0px), 0, 0) scale(var(--profile-scale, 1));
+      transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.48s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       z-index: 25;
+      border-radius: 16px; /* Modern squircle rounded corners */
+      overflow: hidden;    /* Clamp visual zoom transformations */
+      will-change: transform, opacity; /* Hardware acceleration hint */
     }
     
-    /* Breathing Red Glow Background */
-    .profile-img-container::before {
-      content: '';
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      right: -3px;
-      bottom: -3px;
-      border-radius: 14px;
-      background: #6C0D2C; /* Deep Wine Red matching active name accents */
-      filter: blur(4px);
-      opacity: 0;
-      z-index: -1;
-      transform: scale(0.98);
-      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    }
+
     
     .profile-img-container.active {
       z-index: 30; /* Pull active profile above side ones */
       box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
     
-    /* Show glow only on active focused card with breathing effect */
-    .profile-img-container.active::before {
-      animation: redBreathing 2s ease-in-out infinite alternate;
-    }
+
     
     .profile-img-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      border-radius: 12px;
+      border-radius: 16px; /* Align image radius to container */
       pointer-events: none;
     }
     
-    @keyframes redBreathing {
-      0% {
-        opacity: 0.35;
-        transform: scale(1.005);
-        filter: blur(4px);
-      }
-      100% {
-        opacity: 0.65;
-        transform: scale(1.02);
-        filter: blur(6px);
-      }
-    }
+
     
 
     /* Role label below the profiles */
@@ -211,18 +183,11 @@
         margin-bottom: 16px; /* Tight vertical gap below profiles */
       }
       .profile-img-container {
-        width: var(--profile-w, 13vw);
-        height: var(--profile-h, 13vw);
+        width: 15vw;
+        height: 15vw;
         border-radius: 2.5vw;
       }
-      .profile-img-container::before {
-        border-radius: 3vw;
-        top: -0.8vw;
-        left: -0.8vw;
-        right: -0.8vw;
-        bottom: -0.8vw;
-        filter: blur(1.5vw);
-      }
+
       .profile-img-container img {
         border-radius: 2.5vw;
       }
@@ -257,18 +222,11 @@
         margin-bottom: 12px; /* Tight vertical gap below profiles */
       }
       .profile-img-container {
-        width: var(--profile-w, 18vw); /* Significantly larger default profile images on mobile phones */
-        height: var(--profile-h, 18vw);
+        width: 17vw;
+        height: 17vw;
         border-radius: 3vw;
       }
-      .profile-img-container::before {
-        border-radius: 3.5vw;
-        top: -1vw;
-        left: -1vw;
-        right: -1vw;
-        bottom: -1vw;
-        filter: blur(1.5vw);
-      }
+
       .profile-img-container img {
         border-radius: 3vw;
       }

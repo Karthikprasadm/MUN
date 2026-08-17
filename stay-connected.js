@@ -88,7 +88,7 @@ if (canvas) {
         image,
         rect: rect,
         get scaleFactor() {
-          return window.innerWidth < 768 ? 0.65 : 1.0;
+          return window.innerWidth < 768 ? 0.45 : 1.0;
         },
         get width() {
           return rect[2] * this.scaleFactor;

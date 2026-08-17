@@ -91,53 +91,63 @@ const isTouchOrMobile = () => {
 // Function to update the magnetic ripple sizes and positions
 function updateMagneticRipple(activeIndex) {
   const isMobile = window.innerWidth < 768;
+  const isPhone = window.innerWidth < 600;
   
-  profileContainers.forEach((container, i) => {
-    if (activeIndex === null) {
-      // Revert to defaults by removing inline styles
-      container.style.removeProperty("--profile-w");
-      container.style.removeProperty("--profile-h");
+  if (activeIndex === null) {
+    profileContainers.forEach(container => {
+      container.style.removeProperty("--profile-scale");
       container.style.removeProperty("--profile-tx");
       container.style.removeProperty("opacity");
-      return;
-    }
-    
+    });
+    return;
+  }
+  
+  const baseSize = isMobile ? (isPhone ? 17 : 15) : 95;
+  
+  // 1. Calculate the scale for each profile container
+  const scales = [];
+  profileContainers.forEach((container, i) => {
     const distance = Math.abs(i - activeIndex);
-    const direction = Math.sign(i - activeIndex);
-    
     if (distance === 0) {
-      // Active centered focused card
-      if (isMobile) {
-        container.style.setProperty("--profile-w", "31vw");
-        container.style.setProperty("--profile-h", "31vw");
-      } else {
-        container.style.setProperty("--profile-w", "150px");
-        container.style.setProperty("--profile-h", "150px");
-      }
-      container.style.setProperty("--profile-tx", "0px");
-      container.style.setProperty("opacity", "1");
+      const activeSize = isMobile ? (isPhone ? 27 : 25) : 150;
+      scales.push(activeSize / baseSize);
     } else {
-      // Inactive ripple cards
       if (isMobile) {
-        // Enforce ascending tininess based on 18vw (closest is 16vw, further is smaller: 14vw, 12vw, 10vw)
-        const size = 18 - (distance * 2);
-        // Magnetic repulsion push: direction * (2.5vw base + step offset)
-        const tx = direction * (2.5 + (distance - 1) * 1.5);
-        container.style.setProperty("--profile-w", `${size}vw`);
-        container.style.setProperty("--profile-h", `${size}vw`);
-        container.style.setProperty("--profile-tx", `${tx}vw`);
+        const size = baseSize - (distance * 1.5);
+        scales.push(size / baseSize);
       } else {
-        // Desktop ripple sizes based on new 95px default (closest is 90px, further is smaller: 85px, 80px, 75px)
         const size = 95 - (distance * 5);
-        // Desktop magnetic push
-        const tx = direction * (12 + (distance - 1) * 8);
-        container.style.setProperty("--profile-w", `${size}px`);
-        container.style.setProperty("--profile-h", `${size}px`);
-        container.style.setProperty("--profile-tx", `${tx}px`);
+        scales.push(size / 95);
       }
-      // Soft fade out depending on distance
-      container.style.setProperty("opacity", String(1 - (distance * 0.12)));
     }
+  });
+
+  // 2. Compute translation offsets recursively to guarantee 100% equal visual spacing
+  const txs = new Array(profileContainers.length).fill(0);
+  const buffer = isMobile ? (isPhone ? 2.8 : 3.0) : 24; // Extra spacing buffer around focused image
+  
+  // Right side of active card
+  for (let k = activeIndex + 1; k < profileContainers.length; k++) {
+    const extra = (k === activeIndex + 1) ? buffer : 0;
+    txs[k] = txs[k - 1] + baseSize * (scales[k - 1] + scales[k] - 2) / 2 + extra;
+  }
+  
+  // Left side of active card
+  for (let k = activeIndex - 1; k >= 0; k--) {
+    const extra = (k === activeIndex - 1) ? buffer : 0;
+    txs[k] = txs[k + 1] - baseSize * (scales[k] + scales[k + 1] - 2) / 2 - extra;
+  }
+
+  // 3. Center the entire active row within viewport bounds by applying a global alignment shift
+  const globalShift = (txs[0] + txs[profileContainers.length - 1]) / 2;
+
+  // 4. Apply the styles
+  profileContainers.forEach((container, i) => {
+    container.style.setProperty("--profile-scale", String(scales[i]));
+    const finalTx = txs[i] - globalShift;
+    const unit = isMobile ? "vw" : "px";
+    container.style.setProperty("--profile-tx", `${finalTx}${unit}`);
+    container.style.setProperty("opacity", "1");
   });
 }
 
