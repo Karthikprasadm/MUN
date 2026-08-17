@@ -638,6 +638,11 @@ export function createSphereOrbit(root, userOptions = {}) {
 
   const onDown = e => {
     if (lightbox?.openElement) return;
+    
+    const hit = e.target?.closest?.("div");
+    const tile = hit ? tileByEl.get(hit) ?? null : null;
+    if (!tile) return;
+
     lastX = e.clientX;
     lastY = e.clientY;
     lastT = performance.now();
@@ -652,8 +657,7 @@ export function createSphereOrbit(root, userOptions = {}) {
       } catch {}
     }
     
-    const hit = e.target?.closest?.("div");
-    tap.down(e, hit ? tileByEl.get(hit) ?? null : null);
+    tap.down(e, tile);
   };
 
   const onMove = e => {
@@ -665,7 +669,8 @@ export function createSphereOrbit(root, userOptions = {}) {
     const dy = e.clientY - lastY;
     const dt = Math.max(1, now - lastT) / 1e3;
     
-    const perPx = Math.PI / Math.max(1, W);
+    // Use a constant reference width (1500) so dragging speed is identical on both PC and mobile viewports
+    const perPx = Math.PI / 1500;
     const ay = dx * perPx;
     const ax = dy * perPx;
     
@@ -681,7 +686,7 @@ export function createSphereOrbit(root, userOptions = {}) {
   const onUp = () => {
     if (dragging) {
       dragging = false;
-      root.style.cursor = o.draggable ? "grab" : "";
+      root.style.cursor = "default";
     }
     const tile = tap.up();
     if (!tile || !o.openable || lightbox?.openElement) return;
@@ -757,7 +762,7 @@ export function createSphereOrbit(root, userOptions = {}) {
   };
 
   function attach() {
-    root.style.cursor = o.draggable ? "grab" : "";
+    root.style.cursor = "default";
     root.tabIndex = 0;
     root.addEventListener("keydown", onKey);
     root.addEventListener("pointerdown", onDown);

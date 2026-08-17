@@ -43,6 +43,8 @@ body {
   justify-content: center;
   position: relative;
   z-index: 1;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .carousel-container {
@@ -52,6 +54,8 @@ body {
   align-items: center;
   justify-content: center;
   perspective: 1200px;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Let the inner component container fill the parent */
