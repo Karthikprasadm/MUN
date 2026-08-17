@@ -159,8 +159,8 @@ if (canvas) {
 
     const initCrowd = () => {
       const isMobile = window.innerWidth < 768;
-      // Cap maximum active walking crowd members to 24 on mobile to prevent clutter
-      const maxActive = isMobile ? 24 : allPeeps.length;
+      // Cap maximum active walking crowd members to 32 on mobile and 90 on PC to prevent clutter
+      const maxActive = isMobile ? 32 : 90;
 
       while (crowd.length < maxActive && availablePeeps.length) {
         addPeepToCrowd().walk.progress(Math.random());
