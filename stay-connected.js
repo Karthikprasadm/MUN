@@ -25,7 +25,8 @@ if (canvas) {
       const offsetRange = isMobile ? 80 : 250;
       const maxOffset = isMobile ? 30 : 100;
       const offsetY = maxOffset - offsetRange * gsap.parseEase("power2.in")(Math.random());
-      const startY = stage.height - peep.height + offsetY;
+      const heightShift = isMobile ? 35 : 0; // Shift peeps 35px higher on mobile viewports
+      const startY = stage.height - peep.height + offsetY - heightShift;
       let startX;
       let endX;
 
