@@ -216,6 +216,37 @@
     .info-text strong {
       color: #ffffff;
     }
+
+    /* Mobile Phone Sizing and Centering Tweaks */
+    @media (max-width: 480px) {
+      .scroll-container {
+        height: 200vh !important;
+        padding: 0 16px !important;
+        overflow-x: hidden !important;
+      }
+      .scroll-svg {
+        left: -2.5vw !important;
+        right: auto !important;
+        width: 105vw !important;
+        height: auto !important;
+        top: 300px !important;
+      }
+      .header-container {
+        justify-content: flex-start !important;
+        padding: 205px 20px 0 20px !important;
+        transform: translateX(-42px) !important; /* Center heading more cleanly on narrow screens */
+      }
+      .title {
+        font-size: clamp(2.5rem, 11vw, 3.8rem) !important;
+        line-height: 1.05 !important;
+      }
+      .footer-card {
+        top: 100vh !important;
+        width: calc(100% - 32px) !important;
+        padding: 30px 16px 16px 16px !important;
+        border-radius: 20px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -304,6 +335,14 @@
 
       // 2. Exact Scroll progress calculation from reference page
       const path = document.getElementById('scroll-path');
+      const svg = document.querySelector('.scroll-svg');
+
+      if (window.innerWidth <= 480) {
+        // Crop SVG viewBox horizontal margins to scale up the curves, keeping them fully inside the viewport
+        svg.setAttribute('viewBox', '360 0 900 2319');
+        // Increase stroke weight to make the curves look bold and thick on mobile
+        path.setAttribute('stroke-width', '28');
+      }
 
       function updatePathProgress() {
         const scrollY = window.scrollY;
