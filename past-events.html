@@ -344,6 +344,7 @@
         path.setAttribute('stroke-width', '28');
       }
 
+      let scrollTickerActive = false;
       function updatePathProgress() {
         const scrollY = window.scrollY;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -358,9 +359,19 @@
         path.setAttribute('stroke-dasharray', `${pathLength} 1`);
       }
 
+      function onScrollOrResize() {
+        if (!scrollTickerActive) {
+          scrollTickerActive = true;
+          requestAnimationFrame(() => {
+            updatePathProgress();
+            scrollTickerActive = false;
+          });
+        }
+      }
+
       // Bind scroll and resize events
-      window.addEventListener('scroll', updatePathProgress);
-      window.addEventListener('resize', updatePathProgress);
+      window.addEventListener('scroll', onScrollOrResize);
+      window.addEventListener('resize', onScrollOrResize);
       
       // Initial snap execution
       updatePathProgress();
