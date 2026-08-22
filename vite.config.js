@@ -16,6 +16,8 @@ const cleanUrlsPlugin = () => ({
           req.url = '/stay-connected.html' + req.url.substring(15);
         } else if (url === '/past-events') {
           req.url = '/past-events.html' + req.url.substring(12);
+        } else if (url === '/registration') {
+          req.url = '/registration.html' + req.url.substring(13);
         } else if (url === '/404') {
           req.url = '/404.html' + req.url.substring(4);
         } else if (url !== '/' && url !== '') {
@@ -63,6 +65,7 @@ export default defineConfig({
         connected: resolve(process.cwd(), 'stay-connected.html'),
         team: resolve(process.cwd(), 'team.html'),
         past: resolve(process.cwd(), 'past-events.html'),
+        registration: resolve(process.cwd(), 'registration.html'),
         error: resolve(process.cwd(), '404.html')
       }
     }
